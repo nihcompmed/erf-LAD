@@ -1,0 +1,44 @@
+This folder contains materials for inferring networks using patches of the embryo.
+
+make-swarm:
+    - A bash script 
+    - Command: bash make-swarm
+    - Output: 
+        - LAD_patch_{30,45}.cmd
+
+LAD_30.cmd:
+    - 2970 commands to run LAD_patch.py (99 columns for each 10-fold croos-validation, 3 sections)
+    - 2970 commands to run LAD_patch_z.py (99 columns for each 10-fold croos-validation, 3 sections)
+    
+LAD_45.cmd:
+    - 1980 commands to run LAD_patch.py (99 columns for each 10-fold cross-validation, 2 sections)
+    - 1980 commands to run LAD_patch_z.py (99 columns for each 10-fold cross-validation, 2 sections)
+    
+LAD_patch.py and LAD_patch_z.py:
+    - Take 4 arguments, t, s, g, i
+        t = titration level
+        s = section index
+        g = CV group
+        i = column index
+    - Load .npy files from /numpy_files/
+    - Select cells that are located within the region of interest
+    - Compute and save W[:,i] and bias[i]
+    
+- patch.py and patch_z.py:
+    - Take 2 arguments, t and s
+        t = titration level
+        s = section index
+    - Load .npy files from /numpy_files/
+    - At each section of embryo:
+        - Gather the output from LAD_patch.py (LAD_patch_z.py) to get 10 W's and biases
+        - Average W's and biases
+        - Computes a fractional error vector and an error matrix
+        - identify the test samples that are located within the region of interest
+        - Compute an "in-house" fractional error vector and an 'in-house" error matrix
+        - Saves the results as a dictionary
+    - Commands:
+        python3 patch.py 30 3
+        python3 patch.py 45 2
+        python3 patch_z.py 30 3
+        python3 patch_z.py 45 2
+        

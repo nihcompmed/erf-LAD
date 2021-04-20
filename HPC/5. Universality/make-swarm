@@ -1,0 +1,34 @@
+
+for t in 45
+do
+    rm LAD_patch_$t.cmd
+    touch LAD_patch_$t.cmd
+    for s in {0,1}
+    do
+        for g in {0..9}
+        do
+            for i in {0..98}
+            do
+                echo python3 LAD_patch.py $t $s $g $i >> LAD_patch_$t.cmd
+                echo python3 LAD_patch_z.py $t $s $g $i >> LAD_patch_$t.cmd
+            done
+        done
+    done
+done
+
+for t in 30
+do
+    rm LAD_patch_$t.cmd
+    touch LAD_patch_$t.cmd
+    for s in {0,1,2}
+    do
+        for g in {0..9}
+        do
+            for i in {0..98}
+            do
+                echo python3 LAD_patch.py $t $s $g $i >> LAD_patch_$t.cmd
+                echo python3 LAD_patch_z.py $t $s $g $i >> LAD_patch_$t.cmd
+            done
+        done
+    done
+done

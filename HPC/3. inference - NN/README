@@ -1,0 +1,18 @@
+This folder contains materials for training neural networks with the complete training set.
+
+make-swarm:
+    - A bash script 
+    - Command: bash make-swarm
+    - Output: kr_mhidden_mae.cmd and kr_mhidden_mae_10000.cmd
+    
+kr_mhidden_mae.cmd
+    - 15 commands to run nn_mhidden_mae.py with combinations of # of hidden layers and # of nodes on each hidden layer
+    - 1-5 hidden layers, [50,100,1000] nodes
+    
+kr_mhidden_mae_10000.cmd
+    - 5 commands to run nn_mhidden_mae.py with 1-5 hidden layers and 10000 nodes
+    
+nn_mhidden_mae.py:
+    - Takes 2 argument, n_layer and n_node
+    - Loads .npy files from /numpy_files/
+    - Saves the results as a dictionary

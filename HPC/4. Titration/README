@@ -1,0 +1,65 @@
+This folder contains materials for inferring networks using smaller training/validation sets.
+
+make-swarm:
+    - A bash script 
+    - Command: bash make-swarm
+    - Output: 
+        - LAD_{10,20,30,40,50,60,70,80}.cmd
+        - skl_titrate.cmd
+        - kr_titrate_mae.cmd
+
+##################### LAD #####################
+LAD_{10,20,30,40,50,60,70,80}.cmd:
+    - Each file contains 990 commands to run LAD_titrate_l2.py (99 columns for each W of 10-fold cross-validation)
+    
+LAD_titrate_l2.py:
+    - Takes 5 arguments, t, seed, g, i, and l
+        t = titration level
+        seed = random seed
+        g = CV group
+        i = column index
+        l = regularization parameter
+    - Loads .npy files from /numpy_files/
+    - Computes and Saves W[:,i] and bias[i]
+    
+titrate_l2.py:
+    - Load .npy files from /numpy_files/
+    - At each titration level:
+        - Gathers the output from LAD_titrate_l2.py to get 10 W's and biases for each random seed
+        - Computes averaged W's and biases (11 sets for 11 random seeds)
+        - Computes 11 fractional error vectors and 11 error matrices and make them into lists
+        - Saves the results as a dictionary
+    - Command:
+        python3 titrate_l2.py
+        
+        
+##################### Ridge #####################
+skl_titrate.cmd:
+    - 8 commands to run skl_titrate_l2.py
+    
+skl_titrate_l2.py:
+    - Takes 1 argument, t
+        t = titration level
+    - Loads .npy files from /numpy_files/
+    - Using a for-loop, it goes through 11 random seeds to select 11 different training/validation sets
+    - At each loop:
+        - Trains a model using 10-fold cross-validation 
+        - Computes a fractional error vector and an error matrix
+    - Saves the results as a dictionary
+    
+    
+##################### NN #####################
+kr_titrate_mae.cmd:
+    - 88 commands to run nn_titrate_mae.py (11 sets for 8 titration levels)
+    
+nn_titrate_mae.py:
+    - Takes 2 arguments, t and seed
+        t = titration level
+        seed = random seed
+    - Uses 10-fold CV
+    - For each CV group:
+        - Trains a neural network with 1 hidden layer and 10000 nodes
+        - Saves yp
+    - Computes the average of 10 yp's
+    - Computes a fractional error vector and an error matrix from the averaged yp
+    - Saves the results as a dictionary

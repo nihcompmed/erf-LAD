@@ -1,0 +1,19 @@
+rm kr_mhidden_mae.cmd
+touch kr_mhidden_mae.cmd
+for layers in {0,1,2,3,4}
+do
+    for nodes in {50,100,1000}
+    do
+               echo python3 nn_mhidden_mae.py $layers $nodes >> kr_mhidden_mae.cmd
+    done
+done
+
+rm kr_mhidden_mae_10000.cmd
+touch kr_mhidden_mae_10000.cmd
+for layers in {0,1,2,3,4}
+do
+    for nodes in 10000
+    do
+        echo python3 nn_mhidden_mae.py $layers $nodes >> kr_mhidden_mae_10000.cmd
+    done
+done 

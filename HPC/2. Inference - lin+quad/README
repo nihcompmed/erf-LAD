@@ -1,0 +1,27 @@
+This folder contains materials for inferring a network using the complete training set.
+
+make-swarm:
+    - A bash script 
+    - Command: bash make-swarm
+    - Output: LAD.cmd
+    
+LAD.cmd:
+    - 990 commands to run LAD_v.py (99 columns for each W of 10-fold cross-validation)
+    
+LAD_v.py:
+    - Takes 1 argument, k
+        k = computation index
+        from k, obtain i and j
+        i = int(k/10) column index
+        j = np.mod(k,10) CV group
+    - Loads .npy files from /numpy_files/
+    - Computes and saves W[:,i] and bias[i]
+    
+99_99.py:
+    - Loads .npy files from /numpy_files/
+    - Gathers the output from LAD_v.py to get 10 W's and biases
+    - Averages the W's and biases
+    - Computes a fractional error vector and an error matrix
+    - Saves the results as a dictionary
+    - Command:
+        python3 99_99.py

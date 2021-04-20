@@ -1,0 +1,16 @@
+This folder contains materials for verifying our imputation method.
+
+make-swarm:
+    - A bash script 
+    - Run: bash make-swarm
+    - Output: imputation_n{7,13,27,54}.cmd
+
+imputation_n{7,13,27,54}.cmd:
+    - Each file contains 500 commands to run imputation_tf.py
+    
+imputation_tf.py:
+    - Takes two user arguments, i and n.
+        i = trial index
+        n = # of nodes on the hidden layer
+    - Saves 3 randomly chosen gene indexes, correlation coefficients between the imputed data and observed data, and the time point removed
+    

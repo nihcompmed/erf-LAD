@@ -1,0 +1,15 @@
+rm imputation_n54.cmd
+rm imputation_n27.cmd
+rm imputation_n13.cmd
+rm imputation_n7.cmd
+touch imputation_n54.cmd
+touch imputation_n27.cmd
+touch imputation_n13.cmd
+touch imputation_n7.cmd
+for i in {0..499}
+do
+    echo python3 imputation_tf.py $i 54 >> imputation_n54.cmd
+    echo python3 imputation_tf.py $i 27 >> imputation_n27.cmd
+    echo python3 imputation_tf.py $i 13 >> imputation_n13.cmd
+    echo python3 imputation_tf.py $i 7 >> imputation_n7.cmd
+done

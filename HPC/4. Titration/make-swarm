@@ -1,0 +1,32 @@
+for t in {10,20,30,40,50,60,70,80}
+do
+    rm LAD_$t.cmd
+    touch LAD_$t.cmd
+    for seed in {0..10}
+    do
+        for g in {0..9}
+        do
+           for i in {0..98}
+           do
+               echo python3 LAD_titrate_l2.py $t $seed $g $i 0.0001 >> LAD_$t.cmd
+           done
+        done
+    done
+done
+
+rm skl_titrate.cmd
+touch skl_titrate.cmd
+for t in {10,20,30,40,50,60,70,80}
+do
+    echo python3 skl_titrate_l2.py $t >> skl_titrate.cmd
+done
+
+rm kr_titrate_mae.cmd
+touch kr_titrate_mae.cmd
+for i in {10,20,30,40,50,60,70,80}
+do
+    for seed in {0..10}
+    do
+        echo python3 nn_titrate_mae.py $i $seed >> kr_titrate_mae.cmd
+    done
+done
