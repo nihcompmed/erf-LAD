@@ -6,7 +6,7 @@ touch imputation_n54.cmd
 touch imputation_n27.cmd
 touch imputation_n13.cmd
 touch imputation_n7.cmd
-for i in {0..499}
+for i in {0..4} # {0..499}
 do
     echo python3 imputation_tf.py $i 54 >> imputation_n54.cmd
     echo python3 imputation_tf.py $i 27 >> imputation_n27.cmd
