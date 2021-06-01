@@ -43,16 +43,16 @@ bias_list.append(bias)
 yp = X_init + bias + quad_te.dot(w)
 yp[yp < 0] = 0
 ferror = np.sum(np.abs(yp - ya), axis=0)/np.sum(np.abs(ya), axis=0)
-error1 = np.abs(yp - ya)
+error = np.abs(yp - ya)
 
 ferror_list.append(ferror)
-error_list.append(error1)
+error_list.append(error)
 
 dic = {
-    'ferror': ferror_list,
-    'error': error_list,
-    'w': w_list,
-    'bias': bias_list,
+    'ferror': ferror,
+    'error': error,
+    'w': w,
+    'bias': bias,
 }
 
 # modify PATH accordingly

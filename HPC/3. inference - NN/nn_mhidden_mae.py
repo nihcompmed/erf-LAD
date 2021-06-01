@@ -70,10 +70,15 @@ pred_list.append(yp)
 ferror_list.append(ferror)
 error_list.append(error)
 
-res = {'pred': pred_list,
-        'ferror': ferror_list,
-        'error': error_list,
+res = {'pred': yp,
+        'ferror': ferror,
+        'error': error,
         }
+
+#res = {'pred': pred_list,
+#        'ferror': ferror_list,
+#        'error': error_list,
+#        }
 
 # modify PATH accordingly
 with open('./pickles/keras/mae/layer%s_%s.pkl' % (str(n_layer+1), str(n_node)), 'wb') as f:
