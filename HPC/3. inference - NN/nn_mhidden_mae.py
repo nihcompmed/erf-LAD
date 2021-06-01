@@ -75,6 +75,7 @@ res = {'pred': yp,
         'error': error,
         }
 
+# To save all the results from each CV group:
 #res = {'pred': pred_list,
 #        'ferror': ferror_list,
 #        'error': error_list,
