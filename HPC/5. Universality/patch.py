@@ -77,5 +77,5 @@ for sec in range(s):
     }
 
     # modify PATH accordingly
-    with open('./pickles/LAD/LAD_patch_%s_%s.pkl' % (str(t), str(sec)), 'wb') as f:
+    with open('./pickles/LAD_patch_%s_%s.pkl' % (str(t), str(sec)), 'wb') as f:
         pickle.dump(dic, f)
