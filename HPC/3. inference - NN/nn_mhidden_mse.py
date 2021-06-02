@@ -13,13 +13,14 @@ from sklearn.model_selection import KFold
 n_layer = int(sys.argv[1])
 n_node = int(sys.argv[2])
 
-# modify PATH accordingly
 quad_tv = np.load('./numpy_files/quad_tv.npy')
 y_tv = np.load('./numpy_files/y_tv.npy')
 
 quad_te = np.load('./numpy_files/quad_te.npy')
 X_init = np.load('./numpy_files/X_init.npy')
 ya = np.load('./numpy_files/ya.npy')
+
+#quad_tv, y_tv = shuffle(quad_tv, y_tv, random_state=0)
 
 kfold = KFold(n_splits=10, shuffle=True, random_state=0)
 pred_list=[]
@@ -41,21 +42,19 @@ for (cell_tr, cell_v) in (kfold.split(range(5470))):
     model.add(Dense(99, activation='linear', kernel_initializer=initializers.glorot_uniform(seed=n_layer+1), bias_initializer=initializers.Zeros()))
 
     sgd = optimizers.SGD(learning_rate=0.01, momentum=0.9, nesterov=True)
-    model.compile(loss='mean_absolute_error', optimizer=sgd)
+    model.compile(loss='mean_squared_error', optimizer=sgd)
 
     es = EarlyStopping(monitor='val_loss', mode='min', verbose=0, patience=0)
-    # modify PATH accordingly
-    mc = ModelCheckpoint(('./savedmodels/mae/layer%s_%s.h5' % (str(n_layer+1), str(n_node))), monitor='val_loss', mode='min', verbose=0, save_best_only=True)
+    mc = ModelCheckpoint(('./savedmodels/mse/layer%s_%s.h5' % (str(n_layer+1), str(n_node))), monitor='val_loss', mode='min', verbose=0, save_best_only=True)
 
     hist = model.fit(quad_tr, y_tr, batch_size=32, epochs=5000, validation_data=(quad_v, y_v), verbose=0, callbacks=[es,mc])
-    # modify PATH accordingly
-    saved_model = load_model('./savedmodels/mae/layer%s_%s.h5' % (str(n_layer+1), str(n_node)))
+    saved_model = load_model('./savedmodels/mse/layer%s_%s.h5' % (str(n_layer+1), str(n_node)))
 
     diff_p = saved_model.predict(quad_te)
     yp = X_init + diff_p
     yp[yp<0] = 0
 
-    ferror = np.sum(np.abs(yp - ya), axis=0)/np.sum(np.abs(ya), axis=0)
+    ferror = (np.sum(np.abs(yp - ya)**2, axis=0)/np.sum(np.abs(ya)**2, axis=0))**(1/2)
     error = np.abs(yp - ya)
 
     pred_list.append(yp)
@@ -63,7 +62,7 @@ for (cell_tr, cell_v) in (kfold.split(range(5470))):
     error_list.append(error)
 
 yp = np.mean(pred_list, axis=0)
-ferror = np.sum(np.abs(yp - ya), axis=0)/np.sum(np.abs(ya), axis=0)
+ferror = (np.sum(np.abs(yp - ya)**2, axis=0)/np.sum(np.abs(ya)**2, axis=0))**(1/2)
 error = np.abs(yp - ya)
 
 pred_list.append(yp)
@@ -72,15 +71,8 @@ error_list.append(error)
 
 res = {'pred': yp,
        'ferror': ferror,
-       'error': error
-      }
+       'error': erro
+       }
 
-# To save all the results from each CV group:
-#res = {'pred': pred_list,
-#        'ferror': ferror_list,
-#        'error': error_list,
-#        }
-
-# modify PATH accordingly
-with open('./pickles/keras/mae/layer%s_%s.pkl' % (str(n_layer+1), str(n_node)), 'wb') as f:
+with open('./pickles/keras/mse/layer%s_%s.pkl' % (str(n_layer+1), str(n_node)), 'wb') as f:
     pickle.dump(res,f)

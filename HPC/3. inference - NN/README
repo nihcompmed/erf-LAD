@@ -13,6 +13,13 @@ kr_mhidden_mae_10000.cmd
     - 5 commands to run nn_mhidden_mae.py with 1-5 hidden layers and 10000 nodes
     
 nn_mhidden_mae.py:
+    - Trains neural networks by minimizing the mean absolute errors
+    - Takes 2 argument, n_layer and n_node
+    - Loads .npy files from /numpy_files/
+    - Saves the results as a dictionary
+    
+nn_mhidden_mse.py:
+    - Trains neural networks by minimizing the mean squared errors
     - Takes 2 argument, n_layer and n_node
     - Loads .npy files from /numpy_files/
     - Saves the results as a dictionary
