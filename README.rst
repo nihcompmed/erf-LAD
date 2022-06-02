@@ -3,7 +3,7 @@ Mechanistic Gene Networks Inferred from Single-Cell Data are Better Predictors t
 
 Introduction
 ---------------------------------------
-This repository includes all the materials necessary to reproduce the work presented in "Mechanistic Gene Networks Inferred from Single-Cell Data are Better Predictors than Neural Networks". (https://doi.org/10.1101/2021.05.12.443819)
+This repository includes all the materials necessary to reproduce the work presented in "Mechanistic gene networks inferred from single-cell data with an outlier-insensitive method". (https://doi.org/10.1016/j.mbs.2021.108722)
 
 Folders:
   | HPC: Materials for high-performance computing
