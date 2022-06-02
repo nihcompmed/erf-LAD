@@ -1,4 +1,4 @@
-Mechanistic Gene Networks Inferred from Single-Cell Data are Better Predictors than Neural Networks
+Mechanistic gene networks inferred from single-cell data with an outlier-insensitive method
 =====================================================================================================
 
 Introduction
